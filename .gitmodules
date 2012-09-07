@@ -1,0 +1,48 @@
+[submodule "emacs-flymake"]
+	path = emacs-flymake
+	url = https://github.com/illusori/emacs-flymake.git
+[submodule "emacs-flymake-cursor"]
+	path = emacs-flymake-cursor
+	url = https://github.com/illusori/emacs-flymake-cursor.git
+[submodule "rainbow-mode"]
+	path = rainbow-mode
+	url = https://github.com/emacsmirror/rainbow-mode.git
+[submodule "emacs-utils"]
+	path = emacs-utils
+	url = https://github.com/sroccaserra/emacs.git
+[submodule "mark-multiple.el"]
+	path = mark-multiple.el
+	url = https://github.com/magnars/mark-multiple.el.git
+[submodule "js2-mode"]
+	path = js2-mode
+	url = https://github.com/mooz/js2-mode.git
+[submodule "js2-refactor.el"]
+	path = js2-refactor.el
+	url = https://github.com/magnars/js2-refactor.el.git
+[submodule "expand-region.el"]
+	path = expand-region.el
+	url = https://github.com/magnars/expand-region.el.git
+[submodule "php-mode"]
+	path = php-mode
+	url = https://github.com/ejmr/php-mode.git
+[submodule "multi-web-mode"]
+	path = multi-web-mode
+	url = https://github.com/fgallina/multi-web-mode.git
+[submodule "magit"]
+	path = magit
+	url = https://github.com/magit/magit.git
+[submodule "erc-highlight-nick"]
+	path = erc-highlight-nick
+	url = https://github.com/amalloy/erc-highlight-nick.git
+[submodule "erc-nick-notify"]
+	path = erc-nick-notify
+	url = https://github.com/emacsmirror/erc-nick-notify.git
+[submodule "lua-mode"]
+	path = lua-mode
+	url = https://github.com/jd/lua-mode.git
+[submodule "identica-mode"]
+	path = identica-mode
+	url = http://git.savannah.gnu.org/cgit/identica-mode.git
+[submodule "twittering-mode"]
+	path = twittering-mode
+	url = https://github.com/hayamiz/twittering-mode.git

@@ -1,0 +1,16 @@
+;; C-c e f.  FREENODE
+(global-set-key "\C-cef" (lambda () (interactive)
+		   (erc-tls :server "irc.freenode.net" :port "6697"
+			:full-name "tsolar" :nick "tsolar"
+			:password "xxx")
+		   (erc-tls :server "irc.radiognu.org" :port "7767"
+			:full-name "tsolar" :nick "tsolar"
+			:password "xxx")
+;			(erc :server "localhost" :port "6667"
+;			:full-name "tsolar" :nick "tom"
+;			:password "123456")
+;;			(erc :server "irc.partidopirata.cl" :port "6667"
+;;			:full-name "tsolar" :nick "tsolar"
+;;			:password "xxxx")
+			)
+)
