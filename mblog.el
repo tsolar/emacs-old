@@ -13,9 +13,12 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
  '(cursor ((t (:background "yellow" :foreground "black"))))
- '(region ((t (:background "#535d6c")))))
+ '(hl-line ((t (:inherit highlight :background "grey10"))))
+ '(region ((t (:background "#535d6c"))))
+ '(show-paren-match ((t (:background "RoyalBlue4")))))
 
-(add-to-list 'load-path "~/.emacs.d/elpa/oauth2-0.2")
+
+(add-to-list 'load-path "~/.emacs.d/elpa/oauth2")
 
 ;(add-to-list 'load-path "~/.emacs.d/emacs-oauth")
 ;(load "~/.emacs.d/emacs-oauth/oauth.el")
@@ -28,14 +31,15 @@
 ;(add-to-list 'load-path "~/Descargas/identica-mode/identica-mode")
 (require 'identica-mode)
 (setq identica-auth-mode "xauth")
-(load "~/.emacs.d/identica-auth")
+(setq identica-username "tsolar")
+;(load "~/.emacs.d/identica-auth")
 
 ;;;Twittering mode
 (add-to-list 'load-path "~/.emacs.d/twittering-mode") ;; if you need
 (require 'twittering-mode)
 (setq twittering-use-master-password t
       twittering-auth-method 'oauth)
-(load "~/.emacs.d/twitter-auth")
+;(load "~/.emacs.d/twitter-auth")
 
 
 (identica-mode )

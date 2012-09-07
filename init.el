@@ -100,10 +100,11 @@
   
 ;; flymake
 ;(require 'flymake)
-(load  "~/.emacs.d/emacs-flymake/flymake.el")
+(add-to-list 'load-path  "~/.emacs.d/emacs-flymake/")
 (add-hook 'find-file-hook 'flymake-mode)
 
 ;; enhancements for displaying flymake errors
+(add-to-list 'load-path  "~/.emacs.d/emacs-flymake-cursor/")
 (require 'flymake-cursor)
 
 ;; Let's run 8 checks at once instead.
@@ -153,7 +154,7 @@
 ;;rainbow mode
 ;(add-to-list 'load-path "~/.emacs.d/jd-el")
 ;(require 'rainbow-mode)
-(load "~/.emacs.d/jd-el/rainbow-mode.el")
+(add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 ;(rainbow-mode)
 
 ;; CSS!!
@@ -167,11 +168,19 @@
 
 
 ;; lua mode;
-(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
+;;(add-to-list 'load-path "~/.emacs.d/lua-mode")
+;;(require 'lua-mode)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+;;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+
+
 (eval-after-load "lua-mode"
   '(add-hook 'lua-mode-hook 'rainbow-mode))
+
 ;; flymake lua
+(add-to-list 'load-path "~/.emacs.d/emacs-utils")
 (require 'flymake-lua)
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 
@@ -221,8 +230,8 @@
 
 
 ;; php mode
-(load  "~/.emacs.d/pi-php-mode/pi-php-mode.el")
-(require 'pi-php-mode)
+(add-to-list 'load-path  "~/.emacs.d/php-mode")
+(require 'php-mode)
 
 (add-hook 'php-mode-hook
           '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
@@ -320,14 +329,15 @@
       erc-fill-prefix      "         "
       erc-insert-timestamp-function 'ks-timestamp)
 
-(load "~/.emacs.d/erc-highlight-nicknames.el")
-(erc-highlight-nicknames-mode )
+(add-to-list 'load-path "~/.emacs.d/erc-highlight-nick/")
+;(erc-highlight-nicknames-mode )
 (require 'erc-highlight-nicknames)
 
 (add-hook 'window-configuration-change-hook
 	   '(lambda ()
 	      (setq erc-fill-column (- (window-width) 2))))
 
+(add-to-list 'load-path "~/.emacs.d/erc-nick-notify")
 (require 'erc-nick-notify)
 ;(require 'erc-tab)
 
