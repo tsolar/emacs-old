@@ -132,6 +132,7 @@
 
 ;; run flymake for modes...
 (add-hook 'php-mode-hook 'flymake-mode)
+;;(add-hook 'php-mode-hook 'flymake)
 
 ;;Here are instructions how to make flymake work with HTML:
 (defun flymake-html-init ()
@@ -155,7 +156,7 @@
 ;(add-to-list 'load-path "~/.emacs.d/jd-el")
 ;(require 'rainbow-mode)
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
-;(rainbow-mode)
+(require 'rainbow-mode)
 
 ;; CSS!!
 (autoload 'css-mode "css-mode") 
@@ -168,21 +169,17 @@
 
 
 ;; lua mode;
-;;(add-to-list 'load-path "~/.emacs.d/lua-mode")
-;;(require 'lua-mode)
-(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-;;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
-
-
-
-(eval-after-load "lua-mode"
-  '(add-hook 'lua-mode-hook 'rainbow-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 ;; flymake lua
 (add-to-list 'load-path "~/.emacs.d/emacs-utils")
 (require 'flymake-lua)
 (add-hook 'lua-mode-hook 'flymake-lua-load)
+(eval-after-load "lua-mode"
+  '(add-hook 'lua-mode-hook 'rainbow-mode)
+  )
 
 
 ;;browser
