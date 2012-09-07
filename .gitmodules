@@ -46,3 +46,6 @@
 [submodule "twittering-mode"]
 	path = twittering-mode
 	url = https://github.com/hayamiz/twittering-mode.git
+[submodule "git-emacs"]
+	path = git-emacs
+	url = https://github.com/tsgates/git-emacs.git
