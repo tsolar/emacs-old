@@ -2,7 +2,7 @@
 (global-set-key "\C-cef" (lambda () (interactive)
 		   (erc-tls :server "irc.freenode.net" :port "6697"
 			:full-name "tsolar" :nick "tsolar"
-			:password "xxx")
+			:password "ddd")
 		   (erc-tls :server "irc.radiognu.org" :port "7767"
 			:full-name "tsolar" :nick "tsolar"
 			:password "xxx")

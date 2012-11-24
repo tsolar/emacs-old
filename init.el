@@ -40,6 +40,7 @@
  '(erc-speedbar-sort-users-type (quote alphabetical))
  '(erc-user-full-name "Tomás Solar")
  '(flyspell-mode 1 t)
+ '(git-state-modeline-decoration (quote git-state-decoration-small-dot))
  '(global-hl-line-mode t)
  '(global-linum-mode t)
  '(global-subword-mode t)
@@ -58,7 +59,8 @@
  '(scroll-conservatively 1)
  '(show-paren-mode t)
  '(show-paren-style (quote expression))
- '(sml-modeline-mode t))
+ '(sml-modeline-mode t)
+ '(which-function-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -227,8 +229,12 @@
 
 
 ;; php mode
-(add-to-list 'load-path  "~/.emacs.d/php-mode")
-(require 'php-mode)
+;; (add-to-list 'load-path  "~/.emacs.d/php-mode")
+;; (require 'php-mode)
+
+;; other php mode
+(add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
+(require 'pi-php-mode)
 
 (add-hook 'php-mode-hook
           '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
@@ -245,7 +251,7 @@
 (add-to-list 'load-path "~/.emacs.d/multi-web-mode")
 (require 'multi-web-mode)
 (setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((zf-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
+(setq mweb-tags '((php-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
                   (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
                   (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
@@ -256,6 +262,10 @@
 ;; magit - a git mode for emacs
 (add-to-list 'load-path "~/.emacs.d/magit")
 (require 'magit)
+
+;; git-emacs :)
+(add-to-list 'load-path "~/.emacs.d/git-emacs")
+(require 'git-emacs)
 
 
 ;;;elscreen
@@ -376,4 +386,15 @@
 (add-hook 'erc-mode-hook 'ncm-mode)
 ;;fin erc
 
+;(require org)
+;(require org-feed)
+(setq org-feed-alist
+      '(("Remember The Milk"
+         "https://www.rememberthemilk.com/rss/jonnay/"
+         "~/org/GTD.org"
+         "Remember The Milk"
+         :template "* TODO %title\n  %a\n "
+         )))
 
+;;* rtm feed timer
+(run-at-time 3600 3600 'org-feed-update-all)
