@@ -10,7 +10,7 @@
 (global-font-lock-mode t)
 (delete-selection-mode 1) 
 (recentf-mode 1) ; keep a list of recently opened files
-
+(delete-selection-mode 1) ;; replace selection when typing
 
 (setq search-highlight           t) ; Highlight search object
 (setq query-replace-highlight    t) ; Highlight query object
