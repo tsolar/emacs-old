@@ -4,7 +4,8 @@
  '(inhibit-startup-screen t)
  '(tool-bar-mode nil)
  '(menu-bar-mode nil) 
- )
+ '(transient-mark-mode nil)
+)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -38,9 +39,9 @@
 (add-to-list 'load-path "~/.emacs.d/twittering-mode") ;; if you need
 (require 'twittering-mode)
 (setq twittering-use-master-password t
-      twittering-auth-method 'oauth)
-;(load "~/.emacs.d/twitter-auth")
-
+;      twittering-auth-method 'xauth
+      )
+(load-library "~/.emacs.d/twitter-auth")
 
 (identica-mode )
 (split-window-horizontally )
@@ -64,4 +65,3 @@
 (set-face-foreground 'twittering-uri-face "#95E8EC")
 (set-face-underline-p 'twittering-username-face nil)
 (set-face-underline-p 'twittering-uri-face nil)
-
