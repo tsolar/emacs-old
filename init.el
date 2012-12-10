@@ -57,9 +57,12 @@
  '(rainbow-x-colors-major-mode-list (quote (emacs-lisp-mode lisp-interaction-mode c-mode c++-mode java-mode lua-mode html-helper-mode php-mode css-mode lisp-mode)))
  '(save-place t nil (saveplace))
  '(scroll-conservatively 1)
+ '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t)
  '(show-paren-style (quote expression))
  '(sml-modeline-mode t)
+ '(smtpmail-smtp-server "mail.gnuchile.cl")
+ '(smtpmail-smtp-service 25)
  '(which-function-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -91,6 +94,22 @@
                                  "junio" "julio" "agosto" "septiembre"
                                  "octubre" "noviembre" "diciembre"])
 
+;; mover línea hacia arriba
+(defun move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2))
+
+;; mover línea hacia abajo
+(defun move-line-down ()
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1))
+
+
+(global-set-key (kbd "S-M-<up>") 'move-line-up)
+(global-set-key (kbd "S-M-<down>") 'move-line-down)
 
 
 ;; atajo para comentar
@@ -190,7 +209,7 @@
 
 
 
-;;; git clone hhttps://github.com/magnars/mark-multiple.el.git
+;;; git clone https://github.com/magnars/mark-multiple.el.git
 (add-to-list 'load-path "~/.emacs.d/mark-multiple.el")
 ;(load  "~/.emacs.d/mark-multiple.el/rename-sgml-tag.el")
 (require 'sgml-mode)
@@ -206,10 +225,19 @@
 (require 'rename-sgml-tag)
 (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)
 
+;;; git clone https://github.com/magnars/multiple-cursors.el.git
+(add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
+(require 'multiple-cursors)
+
+
+;;; git clone https://github.com/magnars/dash.el.git
+(add-to-list 'load-path "~/.emacs.d/dash.el")
+(require 'dash)
+
 ;;; git clone https://github.com/mooz/js2-mode.git
 (add-to-list 'load-path "~/.emacs.d/js2-mode")
 ;(require 'js2-mode)
-(autoload 'js2-mode "js2" nil t)
+(autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
@@ -390,7 +418,7 @@
 ;(require org-feed)
 (setq org-feed-alist
       '(("Remember The Milk"
-         "https://www.rememberthemilk.com/rss/jonnay/"
+         "https://www.rememberthemilk.com/rss/tsolar/"
          "~/org/GTD.org"
          "Remember The Milk"
          :template "* TODO %title\n  %a\n "
