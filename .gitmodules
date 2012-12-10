@@ -52,3 +52,9 @@
 [submodule "pi-php-mode"]
 	path = pi-php-mode
 	url = git://github.com/pivaldi/pi-php-mode.git
+[submodule "multiple-cursors.el"]
+	path = multiple-cursors.el
+	url = git://github.com/magnars/multiple-cursors.el.git
+[submodule "dash.el"]
+	path = dash.el
+	url = git://github.com/magnars/dash.el.git
