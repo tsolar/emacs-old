@@ -1,7 +1,12 @@
 /elpa
 erc-auth
+twitter-auth
 abbrev_defs
 
 *~
 .#*
 \#*
+DEADJOE
+tramp
+url/cookies
+session.*
