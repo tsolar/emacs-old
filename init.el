@@ -8,13 +8,13 @@
 
                                         ; Turn on syntax colouring in all modes supporting it:
 (global-font-lock-mode t)
-(delete-selection-mode 1) 
+(delete-selection-mode 1)
 (recentf-mode 1) ; keep a list of recently opened files
 (delete-selection-mode 1) ;; replace selection when typing
 
 (setq search-highlight           t) ; Highlight search object
 (setq query-replace-highlight    t) ; Highlight query object
-(setq mouse-sel-retain-highlight t) ; Keep mouse high-lightening 
+(setq mouse-sel-retain-highlight t) ; Keep mouse high-lightening
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -123,7 +123,7 @@
 (global-set-key [(shift f1)] 'buffer-menu)
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
-  
+
 ;; flymake
 ;(require 'flymake)
 (add-to-list 'load-path  "~/.emacs.d/emacs-flymake/")
@@ -185,10 +185,10 @@
 (require 'rainbow-mode)
 
 ;; CSS!!
-(autoload 'css-mode "css-mode") 
- 
-(eval-after-load "css-mode" 
-  '(add-hook 'css-mode-hook 
+(autoload 'css-mode "css-mode")
+
+(eval-after-load "css-mode"
+  '(add-hook 'css-mode-hook
              'rainbow-mode
              )
   )
@@ -299,6 +299,18 @@
 ;; git-emacs :)
 (add-to-list 'load-path "~/.emacs.d/git-emacs")
 (require 'git-emacs)
+
+;; monky - magit for mercurial :)
+(add-to-list 'load-path "~/.emacs.d/monky/")
+(require 'monky)
+
+;; By default monky spawns a seperate hg process for every command.
+;; This will be slow if the repo contains lot of changes.
+;; if `monky-process-type' is set to cmdserver then monky will spawn a single
+;; cmdserver and communicate over pipe.
+;; Available only on mercurial versions 1.9 or higher
+
+(setq monky-process-type 'cmdserver)
 
 
 ;;;elscreen

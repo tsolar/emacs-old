@@ -58,3 +58,6 @@
 [submodule "dash.el"]
 	path = dash.el
 	url = git://github.com/magnars/dash.el.git
+[submodule "monky"]
+	path = monky
+	url = https://github.com/ananthakumaran/monky.git
