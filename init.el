@@ -1,4 +1,4 @@
-; Make Emacs UTF-8 compatible for both display and editing:
+;; Make Emacs UTF-8 compatible for both display and editing:
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -35,6 +35,7 @@
  '(erc-away-nickname nil)
  '(erc-join-buffer (quote window-noselect))
  '(erc-modules (quote (completion list menu scrolltobottom autojoin button dcc fill irccontrols match move-to-prompt netsplit networks noncommands readonly ring stamp spelling track)))
+ '(erc-nick-notify-mode t)
  '(erc-prompt ">")
  '(erc-public-away-p t)
  '(erc-speedbar-sort-users-type (quote alphabetical))
@@ -76,9 +77,13 @@
  '(show-paren-match ((t (:background "RoyalBlue4")))))
 
 ;; Only spaces, please!
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode t)
 (setq tab-width 4)
 (setq-default c-basic-offset 4)
+
+;; delete trailing whitespaces!
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 
 ;(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;; autoindent
 (setq c-indent-comments-syntactically-p nil)
@@ -257,12 +262,12 @@
 
 
 ;; php mode
-;; (add-to-list 'load-path  "~/.emacs.d/php-mode")
-;; (require 'php-mode)
+(add-to-list 'load-path  "~/.emacs.d/php-mode")
+(require 'php-mode)
 
 ;; other php mode
-(add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
-(require 'pi-php-mode)
+;; (add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
+;; (require 'pi-php-mode)
 
 (add-hook 'php-mode-hook
           '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
@@ -364,13 +369,14 @@
       erc-fill-prefix      "         "
       erc-insert-timestamp-function 'ks-timestamp)
 
-(add-to-list 'load-path "~/.emacs.d/erc-highlight-nick/")
-;(erc-highlight-nicknames-mode )
-(require 'erc-highlight-nicknames)
 
 (add-hook 'window-configuration-change-hook
 	   '(lambda ()
 	      (setq erc-fill-column (- (window-width) 2))))
+
+(add-to-list 'load-path "~/.emacs.d/erc-highlight-nick/")
+;(erc-highlight-nicknames-mode )
+(require 'erc-highlight-nicknames)
 
 (add-to-list 'load-path "~/.emacs.d/erc-nick-notify")
 (require 'erc-nick-notify)
@@ -425,4 +431,10 @@
          )))
 
 ;;* rtm feed timer
-(run-at-time 3600 3600 'org-feed-update-all)
+;;(run-at-time 3600 3600 'org-feed-update-all)
+
+;; Org mode
+(setq org-directory "~/org")
+;; MobileOrg
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
