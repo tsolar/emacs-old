@@ -25,7 +25,6 @@
  '(c-default-style "bsd")
  '(column-number-mode t)
  '(custom-enabled-themes nil)
- '(default-input-method "spanish-keyboard")
  '(display-battery-mode t)
  '(display-time-mode t)
  '(electric-indent-mode t)
@@ -70,19 +69,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "xos4" :family "Terminus"))))
+ '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "xos4" :family "Inconsolata"))))
  '(cursor ((t (:background "yellow" :foreground "black"))))
  '(hl-line ((t (:inherit highlight :background "grey10"))))
  '(region ((t (:background "#535d6c"))))
  '(show-paren-match ((t (:background "RoyalBlue4")))))
 
-;; Only spaces, please!
 (setq-default indent-tabs-mode t)
 (setq tab-width 4)
 (setq-default c-basic-offset 4)
 
 ;; delete trailing whitespaces!
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;; autoindent
@@ -311,6 +309,16 @@
 ;; Available only on mercurial versions 1.9 or higher
 
 (setq monky-process-type 'cmdserver)
+
+;; pony - Django mode for emacs
+;(add-to-list 'load-path "~/.emacs.d/pony-mode/src")
+;(require 'pony-mode)
+
+;; django mode
+(require 'django-html-mode)
+(require 'django-mode)
+(yas/load-directory "path-to/django-mode/snippets")
+(add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
 
 
 ;;;elscreen
