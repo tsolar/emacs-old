@@ -315,9 +315,10 @@
 ;(require 'pony-mode)
 
 ;; django mode
+(add-to-list 'load-path "~/.emacs.d/django-mode")
 (require 'django-html-mode)
 (require 'django-mode)
-(yas/load-directory "path-to/django-mode/snippets")
+(yas/load-directory "~/.emacs.d/django-mode/snippets")
 (add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
 
 
