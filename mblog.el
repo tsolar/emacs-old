@@ -21,8 +21,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/elpa/oauth2")
 
-;(add-to-list 'load-path "~/.emacs.d/emacs-oauth")
-;(load "~/.emacs.d/emacs-oauth/oauth.el")
+(add-to-list 'load-path "~/.emacs.d/emacs-oauth")
+(load "~/.emacs.d/emacs-oauth/oauth.el")
 
 (require 'oauth2)
 
@@ -31,9 +31,10 @@
 ;(setq statusnet-server "www.gnewbook.org")
 ;(add-to-list 'load-path "~/Descargas/identica-mode/identica-mode")
 (require 'identica-mode)
-(setq identica-auth-mode "xauth")
+(setq identica-auth-mode "oauth")
 (setq identica-username "tsolar")
 ;(load "~/.emacs.d/identica-auth")
+
 
 ;;;Twittering mode
 (add-to-list 'load-path "~/.emacs.d/twittering-mode") ;; if you need

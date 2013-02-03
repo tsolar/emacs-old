@@ -1,0 +1,5 @@
+(defun
+   epa-passphrase-callback-function(context key-id handback) "t")
+
+;(setq twittering-username "tsolar")
+;(setq twittering-password "t")
