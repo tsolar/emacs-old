@@ -46,9 +46,6 @@
 [submodule "twittering-mode"]
 	path = twittering-mode
 	url = https://github.com/hayamiz/twittering-mode.git
-[submodule "git-emacs"]
-	path = git-emacs
-	url = https://github.com/tsgates/git-emacs.git
 [submodule "pi-php-mode"]
 	path = pi-php-mode
 	url = git://github.com/pivaldi/pi-php-mode.git
@@ -67,3 +64,6 @@
 [submodule "django-mode"]
 	path = django-mode
 	url = https://github.com/myfreeweb/django-mode.git
+[submodule "git-emacs"]
+	path = git-emacs
+	url = https://github.com/tsgates/git-emacs.git
