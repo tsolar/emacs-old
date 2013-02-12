@@ -5,6 +5,7 @@
  '(tool-bar-mode nil)
  '(menu-bar-mode nil) 
  '(transient-mark-mode nil)
+ '(blink-cursor-mode nil)
 )
 
 (custom-set-faces
@@ -12,10 +13,26 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
+ ;; identica
+
+ '(identica-uri-face ((t (:foreground "#9BB43E" :underline nil))))
+ '(identica-username-face ((t (:foreground "tomato" :underline nil))))
+ '(identica-reply-face ((t (:foreground "RoyalBlue4" :underline nil))))
+
+ ;; twitter
+
+ '(twittering-uri-face ((t (:foreground "#95E8EC" :underline nil))))
+ '(twittering-username-face ((t (:foreground "#0099B9" :underline nil))))
+
+ ;; others
+ 
  '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "xos4" :family "Inconsolata"))))
  '(cursor ((t (:background "yellow" :foreground "black"))))
  '(hl-line ((t (:inherit highlight :background "grey10"))))
- '(region ((t (:background "#535d6c"))))
+ ;;'(region ((t (:background "#535d6c"))))
+ '(region ((t (:background nil))))
+ '(highlight ((t (:background "blue"))))
  '(show-paren-match ((t (:background "RoyalBlue4")))))
 
 
@@ -53,16 +70,4 @@
 (add-hook 'twittering-mode (lambda () (linum-mode ) (hl-line-mode)))
 (add-hook 'identica-mode (lambda () (linum-mode ) (hl-line-mode )))
 
-(set-face-foreground 'identica-username-face "tomato");"#8F0000")
-(set-face-foreground 'identica-uri-face "#9BB43E");"#87B4C8")
-;; (set-face-foreground 'identica-reply-face "DodgerBlue3");"#9BB43E")
-(set-face-background 'identica-reply-face "RoyalBlue4")
 
-(set-face-underline-p 'identica-username-face nil)
-(set-face-underline-p 'identica-uri-face nil)
-(set-face-underline-p 'identica-reply-face nil)
-
-(set-face-foreground 'twittering-username-face "#0099B9")
-(set-face-foreground 'twittering-uri-face "#95E8EC")
-(set-face-underline-p 'twittering-username-face nil)
-(set-face-underline-p 'twittering-uri-face nil)

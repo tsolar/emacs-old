@@ -54,6 +54,7 @@
  '(js2-bounce-indent-p t)
  '(js2-cleanup-whitespace t)
  '(js2-enter-indents-newline t)
+ '(menu-bar-mode nil)
  '(rainbow-x-colors-major-mode-list (quote (emacs-lisp-mode lisp-interaction-mode c-mode c++-mode java-mode lua-mode html-helper-mode php-mode css-mode lisp-mode)))
  '(save-place t nil (saveplace))
  '(scroll-conservatively 1)
@@ -63,6 +64,8 @@
  '(sml-modeline-mode t)
  '(smtpmail-smtp-server "mail.gnuchile.cl")
  '(smtpmail-smtp-service 25)
+ '(tool-bar-mode nil)
+ '(transient-mark-mode nil)
  '(which-function-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -71,7 +74,10 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "xos4" :family "Inconsolata"))))
  '(cursor ((t (:background "yellow" :foreground "black"))))
+ '(highlight ((t (:background "blue"))))
  '(hl-line ((t (:inherit highlight :background "grey10"))))
+ '(identica-uri-face ((t (:foreground "#9BB43E"))))
+ '(identica-username-face ((t (:foreground "dark red" :underline nil))))
  '(region ((t (:background "#535d6c"))))
  '(show-paren-match ((t (:background "RoyalBlue4")))))
 
