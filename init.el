@@ -216,6 +216,8 @@
 (require 'w3m-load)
 (require 'w3m)
 
+(setq browse-url-generic-program (executable-find "x-www-browser")
+          browse-url-browser-function 'browse-url-generic)
 
 
 ;;; git clone https://github.com/magnars/mark-multiple.el.git
