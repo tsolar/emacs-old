@@ -1,3 +1,14 @@
+;; enable MELPA
+;(add-to-list 'package-archives
+;     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(add-to-list 'load-path "~/.emacs.d/elpa/cl-lib")
+(require 'cl-lib)
+
 ;; Make Emacs UTF-8 compatible for both display and editing:
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -54,7 +65,6 @@
  '(js2-bounce-indent-p t)
  '(js2-cleanup-whitespace t)
  '(js2-enter-indents-newline t)
- '(menu-bar-mode nil)
  '(rainbow-x-colors-major-mode-list (quote (emacs-lisp-mode lisp-interaction-mode c-mode c++-mode java-mode lua-mode html-helper-mode php-mode css-mode lisp-mode)))
  '(save-place t nil (saveplace))
  '(scroll-conservatively 1)
@@ -64,7 +74,6 @@
  '(sml-modeline-mode t)
  '(smtpmail-smtp-server "mail.gnuchile.cl")
  '(smtpmail-smtp-service 25)
- '(tool-bar-mode nil)
  '(transient-mark-mode nil)
  '(which-function-mode t))
 (custom-set-faces
@@ -78,10 +87,10 @@
  '(hl-line ((t (:inherit highlight :background "grey10"))))
  '(identica-uri-face ((t (:foreground "#9BB43E"))))
  '(identica-username-face ((t (:foreground "dark red" :underline nil))))
- '(region ((t (:background "#535d6c"))))
- '(show-paren-match ((t (:background "RoyalBlue4")))))
+; '(region ((t (:background "#535d6c"))))
+ '(show-paren-match ((t (:background "grey8")))))
 
-(setq-default indent-tabs-mode t)
+;(setq-default indent-tabs-mode t)
 (setq tab-width 4)
 (setq-default c-basic-offset 4)
 
@@ -251,6 +260,9 @@
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
+;; s is required for js2-refactor
+(add-to-list 'load-path "~/.emacs.d/s.el")
+(require 's)
 
 ;;; git clone https://github.com/magnars/js2-refactor.el.git
 (add-to-list 'load-path "~/.emacs.d/js2-refactor.el")
@@ -330,26 +342,30 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
 
 
-;;;elscreen
+;; ;;;elscreen
+
+;; added from elpa
+(add-to-list 'load-path "~/.emacs.d/elpa/elscreen-20120413.1107")
 (load "elscreen" "ElScreen" t)
-;(setq elscreen-prefix-key “\C-z”)
+(elscreen-start)
+(setq elscreen-prefix-key "\C-z")
 
-(defun elscreen-frame-title-update ()
-  (when (elscreen-screen-modified-p 'elscreen-frame-title-update)
-    (let* ((screen-list (sort (elscreen-get-screen-list) '<))
- 	   (screen-to-name-alist (elscreen-get-screen-to-name-alist))
- 	   (title (mapconcat
- 		   (lambda (screen)
- 		     (format "%d%s %s"
- 			     screen (elscreen-status-label screen)
- 			     (get-alist screen screen-to-name-alist)))
- 		   screen-list " ")))
-      (if (fboundp 'set-frame-name)
- 	  (set-frame-name title)
- 	(setq frame-title-format title)))))
+;; (defun elscreen-frame-title-update ()
+;;   (when (elscreen-screen-modified-p 'elscreen-frame-title-update)
+;;     (let* ((screen-list (sort (elscreen-get-screen-list) '<))
+;;  	   (screen-to-name-alist (elscreen-get-screen-to-name-alist))
+;;  	   (title (mapconcat
+;;  		   (lambda (screen)
+;;  		     (format "%d%s %s"
+;;  			     screen (elscreen-status-label screen)
+;;  			     (get-alist screen screen-to-name-alist)))
+;;  		   screen-list " ")))
+;;       (if (fboundp 'set-frame-name)
+;;  	  (set-frame-name title)
+;;  	(setq frame-title-format title)))))
 
-(eval-after-load "elscreen"
-  '(add-hook 'elscreen-screen-update-hook 'elscreen-frame-title-update))
+;; (eval-after-load "elscreen"
+;;   '(add-hook 'elscreen-screen-update-hook 'elscreen-frame-title-update))
 
 
 ;; Load ERC
