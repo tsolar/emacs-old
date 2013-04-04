@@ -70,3 +70,6 @@
 [submodule "emacs-oauth"]
 	path = emacs-oauth
 	url = https://github.com/psanford/emacs-oauth/
+[submodule "s.el"]
+	path = s.el
+	url = https://github.com/magnars/s.el.git

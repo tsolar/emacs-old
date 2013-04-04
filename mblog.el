@@ -56,9 +56,10 @@
 ;;;Twittering mode
 (add-to-list 'load-path "~/.emacs.d/twittering-mode") ;; if you need
 (require 'twittering-mode)
-(setq twittering-use-master-password t
-;      twittering-auth-method 'xauth
-      )
+(setq
+ twittering-use-master-password t
+ ;twittering-auth-method 'xauth
+ )
 (load-library "~/.emacs.d/twitter-auth")
 
 (identica-mode )
@@ -71,3 +72,5 @@
 (add-hook 'identica-mode (lambda () (linum-mode ) (hl-line-mode )))
 
 
+(set-face-underline 'identica-uri-face nil)
+(set-face-underline-p 'identica-uri-face nil)
