@@ -76,3 +76,15 @@
 [submodule "less-css-mode"]
 	path = less-css-mode
 	url = https://github.com/purcell/less-css-mode.git
+[submodule "haml-mode"]
+	path = haml-mode
+	url = https://github.com/nex3/haml-mode
+[submodule "scss-mode"]
+	path = scss-mode
+	url = https://github.com/antonj/scss-mode
+[submodule "yasnippet"]
+	path = yasnippet
+	url = https://github.com/capitaomorte/yasnippet
+[submodule "elscreen"]
+	path = elscreen
+	url = https://github.com/knu/elscreen

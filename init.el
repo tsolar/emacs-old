@@ -104,11 +104,11 @@
 (setq-default c-basic-offset 4)
 
 ;; delete trailing whitespaces!
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-;(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;; autoindent
-(setq c-indent-comments-syntactically-p nil)
+(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;; autoindent
+(setq c-indent-comments-syntactically-p t)
 (setq c-double-slash-is-comments-p t)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -199,6 +199,271 @@
 
 
 ;;;;;;; modes
+
+;; highlight indenting
+(add-to-list 'load-path "~/.emacs.d/elpa/indent-guide")
+(require 'indent-guide)
+(indent-guide-global-mode)
+(set-face-background 'indent-guide-face "dimgray")
+(setq indent-guide-char ":")
+
+
+;; yasnippet
+(add-to-list 'load-path
+              "~/.emacs.d/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;;rainbow mode
+;(add-to-list 'load-path "~/.emacs.d/jd-el")
+;(require 'rainbow-mode)
+(add-to-list 'load-path "~/.emacs.d/rainbow-mode")
+(require 'rainbow-mode)
+
+;; CSS!!
+(autoload 'css-mode "css-mode")
+
+(eval-after-load "css-mode"
+  '(add-hook 'css-mode-hook
+             'rainbow-mode
+             )
+  )
+
+
+;; lua mode;
+(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+;; flymake lua
+(add-to-list 'load-path "~/.emacs.d/emacs-utils")
+(require 'flymake-lua)
+(add-hook 'lua-mode-hook 'flymake-lua-load)
+(eval-after-load "lua-mode"
+  '(add-hook 'lua-mode-hook 'rainbow-mode)
+  )
+
+
+;;browser
+(require 'w3m-load)
+(require 'w3m)
+
+(setq browse-url-generic-program (executable-find "x-www-browser")
+          browse-url-browser-function 'browse-url-generic)
+
+
+;;; git clone https://github.com/magnars/mark-multiple.el.git
+(add-to-list 'load-path "~/.emacs.d/mark-multiple.el")
+;(load  "~/.emacs.d/mark-multiple.el/rename-sgml-tag.el")
+(require 'sgml-mode)
+(require 'inline-string-rectangle)
+(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
+
+(require 'mark-more-like-this)
+(global-set-key (kbd "C-<") 'mark-previous-like-this)
+(global-set-key (kbd "C->") 'mark-next-like-this)
+(global-set-key (kbd "C-M-m") 'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
+(global-set-key (kbd "C-*") 'mark-all-like-this)
+
+(require 'rename-sgml-tag)
+(define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)
+
+;;; git clone https://github.com/magnars/multiple-cursors.el.git
+(add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
+(require 'multiple-cursors)
+
+
+;;; git clone https://github.com/magnars/dash.el.git
+(add-to-list 'load-path "~/.emacs.d/dash.el")
+(require 'dash)
+
+;;; git clone https://github.com/mooz/js2-mode.git
+(add-to-list 'load-path "~/.emacs.d/js2-mode")
+;(require 'js2-mode)
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; s is required for js2-refactor
+(add-to-list 'load-path "~/.emacs.d/s.el")
+(require 's)
+
+;;; git clone https://github.com/magnars/js2-refactor.el.git
+(add-to-list 'load-path "~/.emacs.d/js2-refactor.el")
+(require 'js2-refactor)
+
+;(require 'js2-rename-var)
+;(define-key js2-mode-map (kbd "C-c C-r") 'js2-rename-var)
+
+
+;;; git clone https://github.com/magnars/expand-region.el.git
+(add-to-list 'load-path "~/.emacs.d/expand-region.el")
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-+") 'er/contract-region)
+
+
+;; php mode
+(add-to-list 'load-path  "~/.emacs.d/php-mode")
+(require 'php-mode)
+
+;; other php mode
+;; (add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
+;; (require 'pi-php-mode)
+
+(add-hook 'php-mode-hook
+          '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
+
+
+;; git clone https://github.com/echosa/zf-mode.git
+;; (add-to-list 'load-path "~/.emacs.d/zf-mode/")
+;; (add-to-list 'load-path "~/.emacs.d/zf-mode/bundled")
+
+;; (require 'zf-mode)
+;; (zf-mode-setup)
+
+;; multi-web-mode
+(add-to-list 'load-path "~/.emacs.d/multi-web-mode")
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
+                  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
+
+;; SASS mode
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+;; Haml mode
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/haml-mode"))
+(require 'haml-mode)
+
+;;rainbow mode
+;(add-to-list 'load-path "~/.emacs.d/jd-el")
+;(require 'rainbow-mode)
+(add-to-list 'load-path "~/.emacs.d/rainbow-mode")
+(require 'rainbow-mode)
+
+;; CSS!!
+(autoload 'css-mode "css-mode")
+
+(eval-after-load "css-mode"
+  '(add-hook 'css-mode-hook
+             'rainbow-mode
+             )
+  )
+
+
+;; lua mode;
+(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+;; flymake lua
+(add-to-list 'load-path "~/.emacs.d/emacs-utils")
+(require 'flymake-lua)
+(add-hook 'lua-mode-hook 'flymake-lua-load)
+(eval-after-load "lua-mode"
+  '(add-hook 'lua-mode-hook 'rainbow-mode)
+  )
+
+
+;;browser
+(require 'w3m-load)
+(require 'w3m)
+
+(setq browse-url-generic-program (executable-find "x-www-browser")
+          browse-url-browser-function 'browse-url-generic)
+
+
+;;; git clone https://github.com/magnars/mark-multiple.el.git
+(add-to-list 'load-path "~/.emacs.d/mark-multiple.el")
+;(load  "~/.emacs.d/mark-multiple.el/rename-sgml-tag.el")
+(require 'sgml-mode)
+(require 'inline-string-rectangle)
+(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
+
+(require 'mark-more-like-this)
+(global-set-key (kbd "C-<") 'mark-previous-like-this)
+(global-set-key (kbd "C->") 'mark-next-like-this)
+(global-set-key (kbd "C-M-m") 'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
+(global-set-key (kbd "C-*") 'mark-all-like-this)
+
+(require 'rename-sgml-tag)
+(define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)
+
+;;; git clone https://github.com/magnars/multiple-cursors.el.git
+(add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
+(require 'multiple-cursors)
+
+
+;;; git clone https://github.com/magnars/dash.el.git
+(add-to-list 'load-path "~/.emacs.d/dash.el")
+(require 'dash)
+
+;;; git clone https://github.com/mooz/js2-mode.git
+(add-to-list 'load-path "~/.emacs.d/js2-mode")
+;(require 'js2-mode)
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; s is required for js2-refactor
+(add-to-list 'load-path "~/.emacs.d/s.el")
+(require 's)
+
+;;; git clone https://github.com/magnars/js2-refactor.el.git
+(add-to-list 'load-path "~/.emacs.d/js2-refactor.el")
+(require 'js2-refactor)
+
+;(require 'js2-rename-var)
+;(define-key js2-mode-map (kbd "C-c C-r") 'js2-rename-var)
+
+
+;;; git clone https://github.com/magnars/expand-region.el.git
+(add-to-list 'load-path "~/.emacs.d/expand-region.el")
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-+") 'er/contract-region)
+
+
+;; php mode
+(add-to-list 'load-path  "~/.emacs.d/php-mode")
+(require 'php-mode)
+
+;; other php mode
+;; (add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
+;; (require 'pi-php-mode)
+
+(add-hook 'php-mode-hook
+          '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
+
+
+;; git clone https://github.com/echosa/zf-mode.git
+;; (add-to-list 'load-path "~/.emacs.d/zf-mode/")
+;; (add-to-list 'load-path "~/.emacs.d/zf-mode/bundled")
+
+;; (require 'zf-mode)
+;; (zf-mode-setup)
+
+;; multi-web-mode
+(add-to-list 'load-path "~/.emacs.d/multi-web-mode")
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
+                  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
+
+;; SASS mode
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+;; Haml mode
+
 
 ;;rainbow mode
 ;(add-to-list 'load-path "~/.emacs.d/jd-el")
@@ -321,7 +586,13 @@
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
 (multi-web-global-mode 1)
 
+;; SASS mode
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
+;; Haml mode
+(require 'haml-mode)
 
 ;; magit - a git mode for emacs
 (add-to-list 'load-path "~/.emacs.d/magit")
@@ -357,8 +628,8 @@
 
 ;; ;;;elscreen
 
-;; added from elpa
-(add-to-list 'load-path "~/.emacs.d/elpa/elscreen-20120413.1107")
+;; added from git
+(add-to-list 'load-path "~/.emacs.d/elscreen")
 (load "elscreen" "ElScreen" t)
 (elscreen-start)
 (setq elscreen-prefix-key "\C-z")
