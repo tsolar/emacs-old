@@ -90,7 +90,16 @@
 ; '(region ((t (:background "#535d6c"))))
  '(show-paren-match ((t (:background "grey8")))))
 
+;; tabs!
 ;(setq-default indent-tabs-mode t)
+
+
+;; python issues with tabs...
+;; (add-hook 'python-mode-hook guess-style-guess-tabs-mode)
+;; (add-hook 'python-mode-hook (lambda ()
+;; 			      (when indent-tabs-mode
+;; 				(guess-style-guess-tab-width)))
+
 (setq tab-width 4)
 (setq-default c-basic-offset 4)
 
@@ -205,6 +214,10 @@
              'rainbow-mode
              )
   )
+
+;; Less CSS
+(add-to-list 'load-path "~/.emacs.d/less-css-mode")
+(require 'less-css-mode)
 
 
 ;; lua mode;
@@ -483,3 +496,46 @@
 ;; MobileOrg
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
+
+;; wanderlust stuff
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+
+;; IMAP
+(setq elmo-imap4-default-server "imap.gmail.com")
+(setq elmo-imap4-default-user "tsolar@gmail.com") 
+(setq elmo-imap4-default-authenticate-type 'clear) 
+(setq elmo-imap4-default-port '993)
+(setq elmo-imap4-default-stream-type 'ssl)
+
+(setq elmo-imap4-use-modified-utf7 t) 
+
+;; SMTP
+(setq wl-smtp-connection-type 'starttls)
+(setq wl-smtp-posting-port 587)
+(setq wl-smtp-authenticate-type "plain")
+(setq wl-smtp-posting-user "tsolar")
+(setq wl-smtp-posting-server "smtp.gmail.com")
+(setq wl-local-domain "gmail.com")
+
+(setq wl-default-folder "%inbox")
+(setq wl-default-spec "%")
+(setq wl-draft-folder "%[Gmail]/Drafts") ; Gmail IMAP
+(setq wl-trash-folder "%[Gmail]/Trash")
+
+(setq wl-folder-check-async t) 
+
+(setq elmo-imap4-use-modified-utf7 t)
+
+(autoload 'wl-user-agent-compose "wl-draft" nil t)
+(if (boundp 'mail-user-agent)
+    (setq mail-user-agent 'wl-user-agent))
+(if (fboundp 'define-mail-user-agent)
+    (define-mail-user-agent
+      'wl-user-agent
+      'wl-user-agent-compose
+      'wl-draft-send
+      'wl-draft-kill
+      'mail-send-hook))
+;; end wanderlust stuff
