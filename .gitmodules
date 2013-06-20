@@ -73,3 +73,15 @@
 [submodule "s.el"]
 	path = s.el
 	url = https://github.com/magnars/s.el.git
+[submodule "haml-mode"]
+	path = haml-mode
+	url = https://github.com/nex3/haml-mode
+[submodule "scss-mode"]
+	path = scss-mode
+	url = https://github.com/antonj/scss-mode
+[submodule "yasnippet"]
+	path = yasnippet
+	url = https://github.com/capitaomorte/yasnippet
+[submodule "elscreen"]
+	path = elscreen
+	url = https://github.com/knu/elscreen
