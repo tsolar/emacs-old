@@ -88,3 +88,6 @@
 [submodule "elscreen"]
 	path = elscreen
 	url = https://github.com/knu/elscreen
+[submodule "mmm-mode"]
+	path = mmm-mode
+	url = https://github.com/purcell/mmm-mode

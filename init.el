@@ -15,9 +15,21 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
-;(setenv "LC_CTYPE" "en_US.UTF-8")
+;; (setenv "LC_CTYPE" "en_US.UTF-8")
 
-                                        ; Turn on syntax colouring in all modes supporting it:
+
+(setq ispell-program-name "aspell")
+;; ispell
+(autoload 'ispell-word "ispell" "Check the spelling of word in buffer." 't)
+(autoload 'ispell-region "ispell" "Check the spelling of region." 't)
+(autoload 'ispell-buffer "ispell" "Check the spelling of buffer." t)
+(global-set-key (read-kbd-macro "M-$") 'ispell-word)
+(setq ispell-dictionary "spanish"
+     ispell-skip-sgml t)
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checking" t)
+(setq flyspell-default-dictionary "spanish")
+
+;; Turn on syntax colouring in all modes supporting it:
 (global-font-lock-mode t)
 (delete-selection-mode 1)
 (recentf-mode 1) ; keep a list of recently opened files
@@ -27,6 +39,11 @@
 (setq query-replace-highlight    t) ; Highlight query object
 (setq mouse-sel-retain-highlight t) ; Keep mouse high-lightening
 
+;; stop annoying questions
+(setq-default abbrev-mode t)
+;;(read-abbrev-file “~/.abbrev_defs”)
+(setq save-abbrevs t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -34,6 +51,7 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(c-default-style "bsd")
+ '(c-tab-always-indent nil)
  '(column-number-mode t)
  '(custom-enabled-themes nil)
  '(display-battery-mode t)
@@ -87,7 +105,6 @@
  '(hl-line ((t (:inherit highlight :background "grey10"))))
  '(identica-uri-face ((t (:foreground "#9BB43E"))))
  '(identica-username-face ((t (:foreground "dark red" :underline nil))))
-; '(region ((t (:background "#535d6c"))))
  '(show-paren-match ((t (:background "grey8")))))
 
 ;; tabs!
@@ -107,9 +124,9 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;; autoindent
-(setq c-indent-comments-syntactically-p t)
-(setq c-double-slash-is-comments-p t)
+;;(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;; autoindent
+;;(setq c-indent-comments-syntactically-p t)
+;;(setq c-double-slash-is-comments-p t)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -200,12 +217,54 @@
 
 ;;;;;;; modes
 
+;;(add-to-list 'load-path "~/.emacs.d/elpa/auto-indent-mode")
+;;(require 'auto-indent-mode)
+;;(auto-indent-global-mode)
+
+;; stupid indent
+;;(add-to-list 'load-path "~/.emacs.d/elpa/stupid-indent-mode")
+;;(require 'stupid-indent-mode)
+;;(setq stupid-indent-level 4)
+;;(add-hook 'emacs-lisp-mode-hook 'auto-indent-minor-mode)
+
+;; ;; smart tabs
+;; (add-to-list 'load-path "~/.emacs.d/elpa/smart-tabs")
+;; (autoload 'smart-tabs-mode "smart-tabs-mode"
+;;    "Intelligently indent with tabs, align with spaces!")
+;; (autoload 'smart-tabs-mode-enable "smart-tabs-mode")
+;; (autoload 'smart-tabs-advice "smart-tabs-mode")
+
+;; ;; Load all the following in one pass
+;; ;; (smart-tabs-insinuate 'c 'javascript 'cperl 'python 'ruby)
+
+;; ;; C/C++
+;; (add-hook 'c-mode-hook 'smart-tabs-mode-enable)
+;; (smart-tabs-advice c-indent-line c-basic-offset)
+;; (smart-tabs-advice c-indent-region c-basic-offset)
+
+;; ;; JavaScript
+;; (add-hook 'js2-mode-hook 'smart-tabs-mode-enable)
+;; (smart-tabs-advice js2-indent-line js2-basic-offset)
+
+;; ;; Perl (cperl-mode)
+;; (add-hook 'cperl-mode-hook 'smart-tabs-mode-enable)
+;; (smart-tabs-advice cperl-indent-line cperl-indent-level)
+
+;; ;; Python
+;; (add-hook 'python-mode-hook 'smart-tabs-mode-enable)
+;; (smart-tabs-advice python-indent-line-1 python-indent)
+
+;; ;; Ruby
+;; (add-hook 'ruby-mode-hook 'smart-tabs-mode-enable)
+;; (smart-tabs-advice ruby-indent-line ruby-indent-level)
+
+
 ;; highlight indenting
-(add-to-list 'load-path "~/.emacs.d/elpa/indent-guide")
-(require 'indent-guide)
-(indent-guide-global-mode)
-(set-face-background 'indent-guide-face "dimgray")
-(setq indent-guide-char ":")
+;; (add-to-list 'load-path "~/.emacs.d/elpa/indent-guide")
+;; (require 'indent-guide)
+;; (indent-guide-global-mode)
+;; (set-face-background 'indent-guide-face "dimgray")
+;; (setq indent-guide-char ":")
 
 
 ;; yasnippet
@@ -219,7 +278,7 @@
 ;(require 'rainbow-mode)
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 (require 'rainbow-mode)
-
+()
 ;; CSS!!
 (autoload 'css-mode "css-mode")
 
@@ -329,7 +388,102 @@
                   (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
                   (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-(multi-web-global-mode 1)
+;(multi-web-global-mode 1)
+
+;;********************************************************
+;; configure HTML editing
+;;************************************************************
+;;
+;(require 'php-mode)
+;;
+;; configure css-mode
+;(autoload 'css-mode "css-mode")
+;(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
+(setq cssm-indent-function #'cssm-c-style-indenter)
+(setq cssm-indent-level '2)
+;;
+(add-hook 'php-mode-user-hook 'turn-on-font-lock)
+;;
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/mmm-mode"))
+(require 'mmm-mode)
+(setq mmm-global-mode 'maybe)
+;;
+;; set up an mmm group for fancy html editing
+(mmm-add-group
+ 'fancy-html
+ '(
+   (html-php-tagged
+    :submode php-mode
+    :face mmm-code-submode-face
+    :front "<[?]php"
+    :back "[?]>")
+   (html-css-attribute
+    :submode css-mode
+    :face mmm-declaration-submode-face
+    :front "style=\""
+    :back "\"")))
+;;
+;; What files to invoke the new html-mode for?
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.ctp\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.php[34]?\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.[sj]?html?\\'" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . html-mode))
+;;
+;; What features should be turned on in this html-mode?
+(add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil html-js))
+(add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil embedded-css))
+(add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil fancy-html))
+
+(mmm-add-mode-ext-class nil "\\.php[34]?\\'" 'html-php)
+(mmm-add-mode-ext-class nil "\\.class\\'" 'html-php)
+(mmm-add-mode-ext-class nil "\\.inc\\'" 'html-php)
+(mmm-add-mode-ext-class nil "\\.ctp\\'" 'html-php)
+(mmm-add-classes
+ '((html-php
+    :submode php-mode
+    :front "<\\?\\(php\\)?"
+    :back "\\?>")))
+(autoload 'php-mode "php-mode" "PHP editing mode" t)
+
+;;
+;; Not exactly related to editing HTML: enable editing help
+;; with mouse-3 in all sgml files
+(defun go-bind-markup-menu-to-mouse3 ()
+  (define-key sgml-mode-map [(down-mouse-3)] 'sgml-tags-menu))
+;;
+(add-hook 'sgml-mode-hook 'go-bind-markup-menu-to-mouse3)
+
+(defun insert-php-region ()
+  (interactive "*")
+  (let ((php-template '("<?php" > n p n "?>" > n )))
+    (tempo-insert-template 'php-template tempo-insert-region)
+    (mmm-parse-buffer)))
+
+(defun my-php-hook ()
+  (c-set-style "cc-mode")
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (setq c-basic-offet 4)
+  (c-toggle-hungry-state t)
+
+  ;; C-c C-f is used by pgsml
+  (define-key php-mode-map
+    "\C-cd"
+    'php-search-documentation)
+
+  ;; C-c C-m is used by pgsml
+  (define-key php-mode-map
+    "\C-cb"
+    'php-browse-manual)
+
+  (define-key html-mode-map
+    "\C-c\C-p"
+    'insert-php-region))
+
+(add-hook 'php-mode-hook 'my-php-hook)
+
 
 ;; SASS mode
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
@@ -338,260 +492,6 @@
 
 ;; Haml mode
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/haml-mode"))
-(require 'haml-mode)
-
-;;rainbow mode
-;(add-to-list 'load-path "~/.emacs.d/jd-el")
-;(require 'rainbow-mode)
-(add-to-list 'load-path "~/.emacs.d/rainbow-mode")
-(require 'rainbow-mode)
-
-;; CSS!!
-(autoload 'css-mode "css-mode")
-
-(eval-after-load "css-mode"
-  '(add-hook 'css-mode-hook
-             'rainbow-mode
-             )
-  )
-
-
-;; lua mode;
-(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
-(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
-
-;; flymake lua
-(add-to-list 'load-path "~/.emacs.d/emacs-utils")
-(require 'flymake-lua)
-(add-hook 'lua-mode-hook 'flymake-lua-load)
-(eval-after-load "lua-mode"
-  '(add-hook 'lua-mode-hook 'rainbow-mode)
-  )
-
-
-;;browser
-(require 'w3m-load)
-(require 'w3m)
-
-(setq browse-url-generic-program (executable-find "x-www-browser")
-          browse-url-browser-function 'browse-url-generic)
-
-
-;;; git clone https://github.com/magnars/mark-multiple.el.git
-(add-to-list 'load-path "~/.emacs.d/mark-multiple.el")
-;(load  "~/.emacs.d/mark-multiple.el/rename-sgml-tag.el")
-(require 'sgml-mode)
-(require 'inline-string-rectangle)
-(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
-
-(require 'mark-more-like-this)
-(global-set-key (kbd "C-<") 'mark-previous-like-this)
-(global-set-key (kbd "C->") 'mark-next-like-this)
-(global-set-key (kbd "C-M-m") 'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
-(global-set-key (kbd "C-*") 'mark-all-like-this)
-
-(require 'rename-sgml-tag)
-(define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)
-
-;;; git clone https://github.com/magnars/multiple-cursors.el.git
-(add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
-(require 'multiple-cursors)
-
-
-;;; git clone https://github.com/magnars/dash.el.git
-(add-to-list 'load-path "~/.emacs.d/dash.el")
-(require 'dash)
-
-;;; git clone https://github.com/mooz/js2-mode.git
-(add-to-list 'load-path "~/.emacs.d/js2-mode")
-;(require 'js2-mode)
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-;; s is required for js2-refactor
-(add-to-list 'load-path "~/.emacs.d/s.el")
-(require 's)
-
-;;; git clone https://github.com/magnars/js2-refactor.el.git
-(add-to-list 'load-path "~/.emacs.d/js2-refactor.el")
-(require 'js2-refactor)
-
-;(require 'js2-rename-var)
-;(define-key js2-mode-map (kbd "C-c C-r") 'js2-rename-var)
-
-
-;;; git clone https://github.com/magnars/expand-region.el.git
-(add-to-list 'load-path "~/.emacs.d/expand-region.el")
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-+") 'er/contract-region)
-
-
-;; php mode
-(add-to-list 'load-path  "~/.emacs.d/php-mode")
-(require 'php-mode)
-
-;; other php mode
-;; (add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
-;; (require 'pi-php-mode)
-
-(add-hook 'php-mode-hook
-          '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
-
-
-;; git clone https://github.com/echosa/zf-mode.git
-;; (add-to-list 'load-path "~/.emacs.d/zf-mode/")
-;; (add-to-list 'load-path "~/.emacs.d/zf-mode/bundled")
-
-;; (require 'zf-mode)
-;; (zf-mode-setup)
-
-;; multi-web-mode
-(add-to-list 'load-path "~/.emacs.d/multi-web-mode")
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((php-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
-                  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
-(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-(multi-web-global-mode 1)
-
-;; SASS mode
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
-(autoload 'scss-mode "scss-mode")
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
-
-;; Haml mode
-
-
-;;rainbow mode
-;(add-to-list 'load-path "~/.emacs.d/jd-el")
-;(require 'rainbow-mode)
-(add-to-list 'load-path "~/.emacs.d/rainbow-mode")
-(require 'rainbow-mode)
-
-;; CSS!!
-(autoload 'css-mode "css-mode")
-
-(eval-after-load "css-mode"
-  '(add-hook 'css-mode-hook
-             'rainbow-mode
-             )
-  )
-
-;; Less CSS
-(add-to-list 'load-path "~/.emacs.d/less-css-mode")
-(require 'less-css-mode)
-
-
-;; lua mode;
-(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
-(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
-
-;; flymake lua
-(add-to-list 'load-path "~/.emacs.d/emacs-utils")
-(require 'flymake-lua)
-(add-hook 'lua-mode-hook 'flymake-lua-load)
-(eval-after-load "lua-mode"
-  '(add-hook 'lua-mode-hook 'rainbow-mode)
-  )
-
-
-;;browser
-(require 'w3m-load)
-(require 'w3m)
-
-(setq browse-url-generic-program (executable-find "x-www-browser")
-          browse-url-browser-function 'browse-url-generic)
-
-
-;;; git clone https://github.com/magnars/mark-multiple.el.git
-(add-to-list 'load-path "~/.emacs.d/mark-multiple.el")
-;(load  "~/.emacs.d/mark-multiple.el/rename-sgml-tag.el")
-(require 'sgml-mode)
-(require 'inline-string-rectangle)
-(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
-
-(require 'mark-more-like-this)
-(global-set-key (kbd "C-<") 'mark-previous-like-this)
-(global-set-key (kbd "C->") 'mark-next-like-this)
-(global-set-key (kbd "C-M-m") 'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
-(global-set-key (kbd "C-*") 'mark-all-like-this)
-
-(require 'rename-sgml-tag)
-(define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)
-
-;;; git clone https://github.com/magnars/multiple-cursors.el.git
-(add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
-(require 'multiple-cursors)
-
-
-;;; git clone https://github.com/magnars/dash.el.git
-(add-to-list 'load-path "~/.emacs.d/dash.el")
-(require 'dash)
-
-;;; git clone https://github.com/mooz/js2-mode.git
-(add-to-list 'load-path "~/.emacs.d/js2-mode")
-;(require 'js2-mode)
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-;; s is required for js2-refactor
-(add-to-list 'load-path "~/.emacs.d/s.el")
-(require 's)
-
-;;; git clone https://github.com/magnars/js2-refactor.el.git
-(add-to-list 'load-path "~/.emacs.d/js2-refactor.el")
-(require 'js2-refactor)
-
-;(require 'js2-rename-var)
-;(define-key js2-mode-map (kbd "C-c C-r") 'js2-rename-var)
-
-
-;;; git clone https://github.com/magnars/expand-region.el.git
-(add-to-list 'load-path "~/.emacs.d/expand-region.el")
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C-+") 'er/contract-region)
-
-
-;; php mode
-(add-to-list 'load-path  "~/.emacs.d/php-mode")
-(require 'php-mode)
-
-;; other php mode
-;; (add-to-list 'load-path  "~/.emacs.d/pi-php-mode")
-;; (require 'pi-php-mode)
-
-(add-hook 'php-mode-hook
-          '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
-
-
-;; git clone https://github.com/echosa/zf-mode.git
-;; (add-to-list 'load-path "~/.emacs.d/zf-mode/")
-;; (add-to-list 'load-path "~/.emacs.d/zf-mode/bundled")
-
-;; (require 'zf-mode)
-;; (zf-mode-setup)
-
-;; multi-web-mode
-(add-to-list 'load-path "~/.emacs.d/multi-web-mode")
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((php-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
-                  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
-(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-(multi-web-global-mode 1)
-
-;; SASS mode
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
-(autoload 'scss-mode "scss-mode")
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
-
-;; Haml mode
 (require 'haml-mode)
 
 ;; magit - a git mode for emacs
@@ -775,12 +675,12 @@
 
 ;; IMAP
 (setq elmo-imap4-default-server "imap.gmail.com")
-(setq elmo-imap4-default-user "tsolar@gmail.com") 
-(setq elmo-imap4-default-authenticate-type 'clear) 
+(setq elmo-imap4-default-user "tsolar@gmail.com")
+(setq elmo-imap4-default-authenticate-type 'clear)
 (setq elmo-imap4-default-port '993)
 (setq elmo-imap4-default-stream-type 'ssl)
 
-(setq elmo-imap4-use-modified-utf7 t) 
+(setq elmo-imap4-use-modified-utf7 t)
 
 ;; SMTP
 (setq wl-smtp-connection-type 'starttls)
@@ -795,7 +695,7 @@
 (setq wl-draft-folder "%[Gmail]/Drafts") ; Gmail IMAP
 (setq wl-trash-folder "%[Gmail]/Trash")
 
-(setq wl-folder-check-async t) 
+(setq wl-folder-check-async t)
 
 (setq elmo-imap4-use-modified-utf7 t)
 
