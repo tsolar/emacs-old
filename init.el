@@ -44,6 +44,77 @@
 ;;(read-abbrev-file “~/.abbrev_defs”)
 (setq save-abbrevs t)
 
+;; scrolling
+(global-set-key [next]
+		(lambda () (interactive)
+		  (condition-case nil (scroll-up)
+		    (end-of-buffer (goto-char (point-max))))))
+
+(global-set-key [prior]
+		(lambda () (interactive)
+		  (condition-case nil (scroll-down)
+		    (beginning-of-buffer (goto-char (point-min))))))
+
+;; yanking
+;; after copy Ctrl+c in X11 apps, you can paste by `yank' in emacs
+(setq x-select-enable-clipboard t)
+
+;; after mouse selection in X11, you can paste by `yank' in emacs
+(setq x-select-enable-primary t)
+
+;; smart tabs
+(setq-default tab-width 4) ; or any other preferred value
+(setq cua-auto-tabify-rectangles nil)
+
+(defadvice align (around smart-tabs activate)
+  (let ((indent-tabs-mode nil)) ad-do-it))
+
+(defadvice align-regexp (around smart-tabs activate)
+  (let ((indent-tabs-mode nil)) ad-do-it))
+
+(defadvice indent-relative (around smart-tabs activate)
+  (let ((indent-tabs-mode nil)) ad-do-it))
+
+(defadvice indent-according-to-mode (around smart-tabs activate)
+  (let ((indent-tabs-mode indent-tabs-mode))
+    (if (memq indent-line-function
+	      '(indent-relative
+		indent-relative-maybe))
+	(setq indent-tabs-mode nil))
+    ad-do-it))
+
+(defmacro smart-tabs-advice (function offset)
+  `(progn
+     (defvaralias ',offset 'tab-width)
+     (defadvice ,function (around smart-tabs activate)
+       (cond
+	(indent-tabs-mode
+	 (save-excursion
+	   (beginning-of-line)
+	   (while (looking-at "\t*\\( +\\)\t+")
+	     (replace-match "" nil nil nil 1)))
+	 (setq tab-width tab-width)
+	 (let ((tab-width fill-column)
+	       (,offset fill-column)
+	       (wstart (window-start)))
+	   (unwind-protect
+	       (progn ad-do-it)
+	     (set-window-start (selected-window) wstart))))
+	(t
+	 ad-do-it)))))
+
+(smart-tabs-advice c-indent-line c-basic-offset)
+(smart-tabs-advice c-indent-region c-basic-offset)
+(smart-tabs-advice js2-indent-line js2-basic-offset)
+(smart-tabs-advice cperl-indent-line cperl-indent-level)
+
+(smart-tabs-advice py-indent-line py-indent-offset)
+(smart-tabs-advice py-newline-and-indent py-indent-offset)
+(smart-tabs-advice py-indent-region py-indent-offset)
+
+(smart-tabs-advice ruby-indent-line ruby-indent-level)
+(setq ruby-indent-tabs-mode t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -424,12 +495,12 @@
     :back "\"")))
 ;;
 ;; What files to invoke the new html-mode for?
-(add-to-list 'auto-mode-alist '("\\.inc\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.ctp\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.php[34]?\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.[sj]?html?\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp\\'" . html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.inc\\'" . html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.ctp\\'" . html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.php[34]?\\'" . html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.[sj]?html?\\'" . html-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jsp\\'" . html-mode))
 ;;
 ;; What features should be turned on in this html-mode?
 (add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil html-js))
