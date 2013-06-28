@@ -150,6 +150,8 @@
  '(ido-mode 1 nil (ido))
  '(inhibit-startup-screen t)
  '(iswitchb-mode 1)
+ '(jabber-show-offline-contacts nil)
+ '(jabber-show-resources nil)
  '(js2-auto-indent-p t)
  '(js2-bounce-indent-p t)
  '(js2-cleanup-whitespace t)
@@ -781,3 +783,116 @@
       'wl-draft-kill
       'mail-send-hook))
 ;; end wanderlust stuff
+
+;; emacs-jabber stuff
+(require 'jabber)
+(setq jabber-account-list
+	  '(("tsolar@gmail.com"
+		 (:network-server . "talk.google.com")
+		 (:password . "sjbadfpvscuiesau")
+		 (:connection-type . ssl))))
+
+(defun egh:jabber-google-groupchat-create ()
+  (interactive)
+  (let ((group (apply 'format "private-chat-%x%x%x%x%x%x%x%x-%x%x%x%x-%x%x%x%x-%x%x%x%x-%x%x%x%x%x%x%x%x%x%x%x%x@groupchat.google.com"
+					  (mapcar (lambda (x) (random x)) (make-list 32 15))))
+		(account (jabber-read-account)))
+	(jabber-groupchat-join account group (jabber-muc-read-my-nickname account group) t)))
+
+(defun x-urgency-hint (frame arg &optional source)
+  (let* ((wm-hints (append (x-window-property
+							"WM_HINTS" frame "WM_HINTS" source nil t) nil))
+		 (flags (car wm-hints)))
+    (setcar wm-hints
+			(if arg
+				(logior flags #x00000100)
+			  (logand flags #x1ffffeff)))
+    (x-change-window-property "WM_HINTS" wm-hints frame "WM_HINTS" 32 t)))
+
+;; usage example
+(defvar jabber-activity-jids-count 0)
+
+(defun jabber-urgency-hint ()
+  (let ((count (length jabber-activity-jids)))
+    (unless (= jabber-activity-jids-count count)
+      (if (zerop count)
+		  (x-urgency-hint (selected-frame) nil)
+		(x-urgency-hint (selected-frame) t))
+      (setq jabber-activity-jids-count count))))
+
+(add-hook 'jabber-activity-update-hook 'jabber-urgency-hint)
+
+(defvar libnotify-program "/usr/bin/notify-send")
+
+(defun notify-send (title message)
+  (start-process "notify" " notify"
+		 libnotify-program "--expire-time=4000" title message))
+
+(defun libnotify-jabber-notify (from buf text proposed-alert)
+  "(jabber.el hook) Notify of new Jabber chat messages via libnotify"
+  (when (or jabber-message-alert-same-buffer
+            (not (memq (selected-window) (get-buffer-window-list buf))))
+    (if (jabber-muc-sender-p from)
+        (notify-send (format "(PM) %s"
+                       (jabber-jid-displayname (jabber-jid-user from)))
+               (format "%s: %s" (jabber-jid-resource from) text)))
+      (notify-send (format "%s" (jabber-jid-displayname from))
+             text)))
+
+(add-hook 'jabber-alert-message-hooks 'libnotify-jabber-notify)
+
+(setq jabber-vcard-avatars-retrieve nil
+      jabber-chat-buffer-show-avatar nil)
+
+(define-key jabber-chat-mode-map [S-return] 'newline)
+;; (define-key jabber-chat-mode-map [C-return] 'jabber-chat-buffer-send)
+
+(setq my-chat-prompt "[%t] %n> ")
+(when (featurep 'jabber)
+  (setq
+   jabber-chat-foreign-prompt-format my-chat-prompt
+   jabber-chat-local-prompt-format my-chat-prompt
+   jabber-groupchat-prompt-format my-chat-prompt
+   jabber-muc-private-foreign-prompt-format "[%t] %g/%n> "
+   )
+  )
+
+
+(defun my-jabber-chat-delete-or-bury ()
+  (interactive)
+  (if (eq 'jabber-chat-mode major-mode)
+      (condition-case e
+          (delete-frame)
+        (error
+         (if (string= "Attempt to delete the sole visible or iconified frame"
+                      (cadr e))
+			 (bury-buffer))))))
+
+(add-hook 'jabber-chat-mode-hook 'goto-address)
+
+(setq jabber-chat-header-line-format
+	  '(" " (:eval (jabber-jid-displayname jabber-chatting-with))
+    	" " (:eval (jabber-jid-resource jabber-chatting-with)) "\t";
+    	(:eval (let ((buddy (jabber-jid-symbol jabber-chatting-with)))
+				 (propertize
+				  (or
+				   (cdr (assoc (get buddy 'show) jabber-presence-strings))
+				   (get buddy 'show))
+				  'face
+				  (or (cdr (assoc (get buddy 'show) jabber-presence-faces))
+					  'jabber-roster-user-online))))
+    	"\t" (:eval (get (jabber-jid-symbol jabber-chatting-with) 'status))
+    	(:eval (unless (equal "" *jabber-current-show*)
+				 (concat "\t You're " *jabber-current-show*
+					 " (" *jabber-current-status* ")")))))
+
+(add-to-list 'load-path "~/.emacs.d/autosmiley")
+(require 'autosmiley)
+(add-hook 'jabber-chat-mode-hook 'autosmiley-mode)
+
+(defun jabber ()
+  (interactive)
+  (define-key jabber-chat-mode-map [escape]
+    'my-jabber-chat-delete-or-bury)
+  (jabber-connect-all)
+  (switch-to-buffer "*-jabber-*"))

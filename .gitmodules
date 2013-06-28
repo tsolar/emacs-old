@@ -91,3 +91,6 @@
 [submodule "mmm-mode"]
 	path = mmm-mode
 	url = https://github.com/purcell/mmm-mode
+[submodule "autosmiley"]
+	path = autosmiley
+	url = https://github.com/emacsmirror/autosmiley.git
