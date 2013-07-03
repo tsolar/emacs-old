@@ -167,7 +167,7 @@
  '(sml-modeline-mode t)
  '(smtpmail-smtp-server "mail.gnuchile.cl")
  '(smtpmail-smtp-service 25)
- '(tab-always-indent nil)
+ '(tab-always-indent t)
  '(indent-tabs-mode t)
  '(transient-mark-mode nil)
  '(which-function-mode t))
@@ -185,7 +185,7 @@
  '(show-paren-match ((t (:background "grey8")))))
 
 ;; tabs!
-;; (setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode t)
 
 ;; python issues with tabs...
 ;; (add-hook 'python-mode-hook guess-style-guess-tabs-mode)
