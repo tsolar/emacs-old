@@ -127,7 +127,6 @@
  '(custom-enabled-themes nil)
  '(display-battery-mode t)
  '(display-time-mode t)
- '(electric-indent-mode t)
  '(electric-pair-mode t)
  '(erc-auto-query (quote window-noselect))
  '(erc-autoaway-mode t)
@@ -144,6 +143,9 @@
  '(global-hl-line-mode t)
  '(global-linum-mode t)
  '(global-subword-mode t)
+ '(haml-backspace-backdents-nesting nil)
+ '(haml-indent-offset 4)
+ '(haml-mode-hook nil)
  '(identica-display-success-messages t)
  '(identica-soft-wrap-status t)
  '(ido-enable-flex-matching t)
@@ -165,6 +167,8 @@
  '(sml-modeline-mode t)
  '(smtpmail-smtp-server "mail.gnuchile.cl")
  '(smtpmail-smtp-service 25)
+ '(tab-always-indent nil)
+ '(indent-tabs-mode t)
  '(transient-mark-mode nil)
  '(which-function-mode t))
 (custom-set-faces
@@ -181,8 +185,7 @@
  '(show-paren-match ((t (:background "grey8")))))
 
 ;; tabs!
-;(setq-default indent-tabs-mode t)
-
+;; (setq-default indent-tabs-mode t)
 
 ;; python issues with tabs...
 ;; (add-hook 'python-mode-hook guess-style-guess-tabs-mode)
@@ -234,7 +237,7 @@
 
 (global-set-key [(shift f1)] 'buffer-menu)
 
-(define-key global-map (kbd "RET") 'newline-and-indent)
+;;(define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; flymake
 ;(require 'flymake)
@@ -473,7 +476,7 @@
 ;(autoload 'css-mode "css-mode")
 ;(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
 (setq cssm-indent-function #'cssm-c-style-indenter)
-(setq cssm-indent-level '2)
+(setq cssm-indent-level '4)
 ;;
 (add-hook 'php-mode-user-hook 'turn-on-font-lock)
 ;;
