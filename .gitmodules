@@ -94,3 +94,6 @@
 [submodule "autosmiley"]
 	path = autosmiley
 	url = https://github.com/emacsmirror/autosmiley.git
+[submodule "idle-highlight-mode"]
+	path = idle-highlight-mode
+	url = https://github.com/nonsequitur/idle-highlight-mode
