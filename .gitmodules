@@ -6,7 +6,7 @@
 	url = https://github.com/illusori/emacs-flymake-cursor.git
 [submodule "rainbow-mode"]
 	path = rainbow-mode
-	url = https://github.com/emacsmirror/rainbow-mode.git
+	url = https://github.com/emacsmirror/rainbow-mode
 [submodule "emacs-utils"]
 	path = emacs-utils
 	url = https://github.com/sroccaserra/emacs.git
