@@ -183,7 +183,6 @@
 ;; tabs!
 ;(setq-default indent-tabs-mode t)
 
-
 ;; python issues with tabs...
 ;; (add-hook 'python-mode-hook guess-style-guess-tabs-mode)
 ;; (add-hook 'python-mode-hook (lambda ()
@@ -339,6 +338,21 @@
 ;; (set-face-background 'indent-guide-face "dimgray")
 ;; (setq indent-guide-char ":")
 
+
+;; idle-highlight-mode
+(add-to-list 'load-path "~/.emacs.d/idle-highlight-mode")
+(require 'idle-highlight-mode)
+(defun my-coding-hook ()
+  (make-local-variable 'column-number-mode)
+  (column-number-mode t)
+  (if window-system (hl-line-mode t))
+  (idle-highlight-mode t))
+
+(add-hook 'emacs-lisp-mode-hook 'my-coding-hook)
+(add-hook 'ruby-mode-hook 'my-coding-hook)
+(add-hook 'js2-mode-hook 'my-coding-hook)
+(add-hook 'php-mode-hook 'my-coding-hook)
+(add-hook 'python-mode-hook 'my-coding-hook)
 
 ;; yasnippet
 (add-to-list 'load-path
@@ -839,7 +853,7 @@
       (notify-send (format "%s" (jabber-jid-displayname from))
              text)))
 
-(add-hook 'jabber-alert-message-hooks 'libnotify-jabber-notify)
+;; (add-hook 'jabber-alert-message-hooks 'libnotify-jabber-notify)
 
 (setq jabber-vcard-avatars-retrieve nil
       jabber-chat-buffer-show-avatar nil)
