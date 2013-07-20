@@ -150,6 +150,7 @@
  '(identica-soft-wrap-status t)
  '(ido-enable-flex-matching t)
  '(ido-mode 1 nil (ido))
+ '(indent-tabs-mode t)
  '(inhibit-startup-screen t)
  '(iswitchb-mode 1)
  '(jabber-show-offline-contacts nil)
@@ -168,7 +169,6 @@
  '(smtpmail-smtp-server "mail.gnuchile.cl")
  '(smtpmail-smtp-service 25)
  '(tab-always-indent t)
- '(indent-tabs-mode t)
  '(transient-mark-mode nil)
  '(which-function-mode t))
 (custom-set-faces
@@ -176,7 +176,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "xos4" :family "Monaco"))))
+ '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "xos4" :family "Inconsolata"))))
  '(cursor ((t (:background "yellow" :foreground "black"))))
  '(highlight ((t (:background "blue"))))
  '(hl-line ((t (:inherit highlight :background "grey10"))))
@@ -293,55 +293,10 @@
 
 ;;;;;;; modes
 
-;;(add-to-list 'load-path "~/.emacs.d/elpa/auto-indent-mode")
-;;(require 'auto-indent-mode)
-;;(auto-indent-global-mode)
-
-;; stupid indent
-;;(add-to-list 'load-path "~/.emacs.d/elpa/stupid-indent-mode")
-;;(require 'stupid-indent-mode)
-;;(setq stupid-indent-level 4)
-;;(add-hook 'emacs-lisp-mode-hook 'auto-indent-minor-mode)
-
-;; ;; smart tabs
-;; (add-to-list 'load-path "~/.emacs.d/elpa/smart-tabs")
-;; (autoload 'smart-tabs-mode "smart-tabs-mode"
-;;    "Intelligently indent with tabs, align with spaces!")
-;; (autoload 'smart-tabs-mode-enable "smart-tabs-mode")
-;; (autoload 'smart-tabs-advice "smart-tabs-mode")
-
-;; ;; Load all the following in one pass
-;; ;; (smart-tabs-insinuate 'c 'javascript 'cperl 'python 'ruby)
-
-;; ;; C/C++
-;; (add-hook 'c-mode-hook 'smart-tabs-mode-enable)
-;; (smart-tabs-advice c-indent-line c-basic-offset)
-;; (smart-tabs-advice c-indent-region c-basic-offset)
-
-;; ;; JavaScript
-;; (add-hook 'js2-mode-hook 'smart-tabs-mode-enable)
-;; (smart-tabs-advice js2-indent-line js2-basic-offset)
-
-;; ;; Perl (cperl-mode)
-;; (add-hook 'cperl-mode-hook 'smart-tabs-mode-enable)
-;; (smart-tabs-advice cperl-indent-line cperl-indent-level)
-
-;; ;; Python
-;; (add-hook 'python-mode-hook 'smart-tabs-mode-enable)
-;; (smart-tabs-advice python-indent-line-1 python-indent)
-
-;; ;; Ruby
-;; (add-hook 'ruby-mode-hook 'smart-tabs-mode-enable)
-;; (smart-tabs-advice ruby-indent-line ruby-indent-level)
-
-
-;; highlight indenting
-;; (add-to-list 'load-path "~/.emacs.d/elpa/indent-guide")
-;; (require 'indent-guide)
-;; (indent-guide-global-mode)
-;; (set-face-background 'indent-guide-face "dimgray")
-;; (setq indent-guide-char ":")
-
+;; nginx mode
+(add-to-list 'load-path
+              "~/.emacs.d/nginx-mode")
+(require 'nginx-mode)
 
 ;; yasnippet
 (add-to-list 'load-path
@@ -354,7 +309,7 @@
 ;(require 'rainbow-mode)
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 (require 'rainbow-mode)
-()
+
 ;; CSS!!
 (autoload 'css-mode "css-mode")
 
@@ -449,80 +404,10 @@
           '(lambda () (define-abbrev php-mode-abbrev-table "ex" "extends")))
 
 
-;; git clone https://github.com/echosa/zf-mode.git
-;; (add-to-list 'load-path "~/.emacs.d/zf-mode/")
-;; (add-to-list 'load-path "~/.emacs.d/zf-mode/bundled")
-
-;; (require 'zf-mode)
-;; (zf-mode-setup)
-
-;; multi-web-mode
-(add-to-list 'load-path "~/.emacs.d/multi-web-mode")
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((php-mode "<\\?php\\|<\\?\\|<\\?=" "\\?>")
-                  (js2-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
-                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
-(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-;(multi-web-global-mode 1)
-
-;;********************************************************
-;; configure HTML editing
-;;************************************************************
-;;
-;(require 'php-mode)
-;;
-;; configure css-mode
-;(autoload 'css-mode "css-mode")
-;(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
 (setq cssm-indent-function #'cssm-c-style-indenter)
 (setq cssm-indent-level '4)
 ;;
 (add-hook 'php-mode-user-hook 'turn-on-font-lock)
-;;
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/mmm-mode"))
-(require 'mmm-mode)
-(setq mmm-global-mode 'maybe)
-;;
-;; set up an mmm group for fancy html editing
-(mmm-add-group
- 'fancy-html
- '(
-   (html-php-tagged
-    :submode php-mode
-    :face mmm-code-submode-face
-    :front "<[?]php"
-    :back "[?]>")
-   (html-css-attribute
-    :submode css-mode
-    :face mmm-declaration-submode-face
-    :front "style=\""
-    :back "\"")))
-;;
-;; What files to invoke the new html-mode for?
-;; (add-to-list 'auto-mode-alist '("\\.inc\\'" . html-mode))
-;; (add-to-list 'auto-mode-alist '("\\.ctp\\'" . html-mode))
-;; (add-to-list 'auto-mode-alist '("\\.phtml\\'" . html-mode))
-;; (add-to-list 'auto-mode-alist '("\\.php[34]?\\'" . html-mode))
-;; (add-to-list 'auto-mode-alist '("\\.[sj]?html?\\'" . html-mode))
-;; (add-to-list 'auto-mode-alist '("\\.jsp\\'" . html-mode))
-;;
-;; What features should be turned on in this html-mode?
-(add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil html-js))
-(add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil embedded-css))
-(add-to-list 'mmm-mode-ext-classes-alist '(html-mode nil fancy-html))
-
-(mmm-add-mode-ext-class nil "\\.php[34]?\\'" 'html-php)
-(mmm-add-mode-ext-class nil "\\.class\\'" 'html-php)
-(mmm-add-mode-ext-class nil "\\.inc\\'" 'html-php)
-(mmm-add-mode-ext-class nil "\\.ctp\\'" 'html-php)
-(mmm-add-classes
- '((html-php
-    :submode php-mode
-    :front "<\\?\\(php\\)?"
-    :back "\\?>")))
-(autoload 'php-mode "php-mode" "PHP editing mode" t)
-
 ;;
 ;; Not exactly related to editing HTML: enable editing help
 ;; with mouse-3 in all sgml files
@@ -561,6 +446,41 @@
 (add-hook 'php-mode-hook 'my-php-hook)
 
 
+;; web-mode :)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/web-mode"))
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;;(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+(setq web-mode-engines-alist
+	  '(("django" . "\\.html\\'")
+		)
+)
+
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 4)
+(setq web-mode-code-indent-offset 4)
+(setq web-mode-indent-style 2)
+(set-face-attribute 'web-mode-css-at-rule-face nil :foreground "Pink3")
+(define-key web-mode-map (kbd "C-n") 'web-mode-tag-match)
+(setq web-mode-disable-auto-pairing nil)
+(setq web-mode-enable-block-face t)
+(setq web-mode-enable-part-face t)
+(setq web-mode-enable-comment-keywords t)
+(setq web-mode-enable-heredoc-fontification t)
+(setq web-mode-disable-css-colorization nil)
+(defun web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+  )
+(add-hook 'web-mode-hook 'web-mode-hook)
 ;; SASS mode
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
 (autoload 'scss-mode "scss-mode")
@@ -589,17 +509,6 @@
 ;; Available only on mercurial versions 1.9 or higher
 
 (setq monky-process-type 'cmdserver)
-
-;; pony - Django mode for emacs
-;(add-to-list 'load-path "~/.emacs.d/pony-mode/src")
-;(require 'pony-mode)
-
-;; django mode
-(add-to-list 'load-path "~/.emacs.d/django-mode")
-(require 'django-html-mode)
-(require 'django-mode)
-(yas/load-directory "~/.emacs.d/django-mode/snippets")
-(add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
 
 
 ;; ;;;elscreen
