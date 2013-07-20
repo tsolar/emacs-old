@@ -94,3 +94,9 @@
 [submodule "autosmiley"]
 	path = autosmiley
 	url = https://github.com/emacsmirror/autosmiley.git
+[submodule "nginx-mode"]
+	path = nginx-mode
+	url = https://github.com/ajc/nginx-mode
+[submodule "web-mode"]
+	path = web-mode
+	url = https://github.com/fxbois/web-mode
