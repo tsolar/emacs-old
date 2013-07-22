@@ -146,7 +146,7 @@
  '(global-subword-mode t)
  '(haml-backspace-backdents-nesting nil)
  '(haml-indent-offset 4)
- '(haml-mode-hook nil)
+ ;'(haml-mode-hook nil)
  '(identica-display-success-messages t)
  '(identica-soft-wrap-status t)
  '(ido-enable-flex-matching t)
@@ -583,8 +583,14 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;; Haml mode
+(defun my-tabs-mode-hook ()
+      (setq indent-tabs-mode t
+			)
+	  )
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/haml-mode"))
 (require 'haml-mode)
+
+(add-hook 'haml-mode-hook 'my-tabs-mode-hook)
 
 ;; magit - a git mode for emacs
 (add-to-list 'load-path "~/.emacs.d/magit")
