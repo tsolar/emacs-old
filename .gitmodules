@@ -106,3 +106,6 @@
 [submodule "python.el"]
 	path = python.el
 	url = https://github.com/fgallina/python.el
+[submodule "git-modes"]
+	path = git-modes
+	url = https://github.com/magit/git-modes

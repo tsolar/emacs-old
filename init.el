@@ -502,13 +502,20 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/haml-mode"))
 (require 'haml-mode)
 
-;; magit - a git mode for emacs
-(add-to-list 'load-path "~/.emacs.d/magit")
-(require 'magit)
-
 ;; git-emacs :)
 (add-to-list 'load-path "~/.emacs.d/git-emacs")
 (require 'git-emacs)
+
+;; git-modes :)
+(add-to-list 'load-path "~/.emacs.d/git-modes")
+(require 'git-commit-mode)
+(require 'git-rebase-mode)
+(require 'gitconfig-mode)
+(require 'gitignore-mode)
+
+;; magit - a git mode for emacs
+(add-to-list 'load-path "~/.emacs.d/magit")
+(require 'magit)
 
 ;; monky - magit for mercurial :)
 (add-to-list 'load-path "~/.emacs.d/monky/")
