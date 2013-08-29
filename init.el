@@ -39,6 +39,8 @@
 (setq query-replace-highlight    t) ; Highlight query object
 (setq mouse-sel-retain-highlight t) ; Keep mouse high-lightening
 
+(setq stack-trace-on-error t)
+
 ;; stop annoying questions
 (setq-default abbrev-mode t)
 ;;(read-abbrev-file “~/.abbrev_defs”)
