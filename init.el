@@ -39,6 +39,8 @@
 (setq query-replace-highlight    t) ; Highlight query object
 (setq mouse-sel-retain-highlight t) ; Keep mouse high-lightening
 
+(setq stack-trace-on-error t)
+
 ;; stop annoying questions
 (setq-default abbrev-mode t)
 ;;(read-abbrev-file “~/.abbrev_defs”)
@@ -465,6 +467,10 @@
 ;; web-mode :)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/web-mode"))
 (require 'web-mode)
+(setq web-mode-engines-alist
+	  '(("django" . "\\.html\\'")
+		)
+)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
@@ -475,10 +481,7 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 ;;(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-(setq web-mode-engines-alist
-	  '(("django" . "\\.html\\'")
-		)
-)
+
 
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-css-indent-offset 4)
@@ -497,6 +500,16 @@
   (setq web-mode-markup-indent-offset 2)
   )
 (add-hook 'web-mode-hook 'web-mode-hook)
+
+
+
+;; python & django
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/python.el"))
+(require 'python)
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/python-django.el"))
+(require 'python-django)
+
 ;; SASS mode
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
 (autoload 'scss-mode "scss-mode")
@@ -512,13 +525,20 @@
 
 (add-hook 'haml-mode-hook 'my-tabs-mode-hook)
 
-;; magit - a git mode for emacs
-(add-to-list 'load-path "~/.emacs.d/magit")
-(require 'magit)
-
 ;; git-emacs :)
 (add-to-list 'load-path "~/.emacs.d/git-emacs")
 (require 'git-emacs)
+
+;; git-modes :)
+(add-to-list 'load-path "~/.emacs.d/git-modes")
+(require 'git-commit-mode)
+(require 'git-rebase-mode)
+(require 'gitconfig-mode)
+(require 'gitignore-mode)
+
+;; magit - a git mode for emacs
+(add-to-list 'load-path "~/.emacs.d/magit")
+(require 'magit)
 
 ;; monky - magit for mercurial :)
 (add-to-list 'load-path "~/.emacs.d/monky/")
