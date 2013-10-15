@@ -129,6 +129,7 @@
  '(custom-enabled-themes nil)
  '(display-battery-mode t)
  '(display-time-mode t)
+;; '(electric-indent-mode t)
  '(electric-pair-mode t)
  '(erc-auto-query (quote window-noselect))
  '(erc-autoaway-mode t)
@@ -147,7 +148,7 @@
  '(global-subword-mode t)
  '(haml-backspace-backdents-nesting nil)
  '(haml-indent-offset 4)
- '(haml-mode-hook nil)
+ ;'(haml-mode-hook nil)
  '(identica-display-success-messages t)
  '(identica-soft-wrap-status t)
  '(ido-enable-flex-matching t)
@@ -300,6 +301,21 @@
 (add-to-list 'load-path
               "~/.emacs.d/nginx-mode")
 (require 'nginx-mode)
+
+;; idle-highlight-mode
+(add-to-list 'load-path "~/.emacs.d/idle-highlight-mode")
+(require 'idle-highlight-mode)
+(defun my-coding-hook ()
+  (make-local-variable 'column-number-mode)
+  (column-number-mode t)
+  (if window-system (hl-line-mode t))
+  (idle-highlight-mode t))
+
+(add-hook 'emacs-lisp-mode-hook 'my-coding-hook)
+(add-hook 'ruby-mode-hook 'my-coding-hook)
+(add-hook 'js2-mode-hook 'my-coding-hook)
+(add-hook 'php-mode-hook 'my-coding-hook)
+(add-hook 'python-mode-hook 'my-coding-hook)
 
 ;; yasnippet
 (add-to-list 'load-path
@@ -471,6 +487,7 @@
 ;;(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 
+
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-css-indent-offset 4)
 (setq web-mode-code-indent-offset 4)
@@ -504,8 +521,14 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;; Haml mode
+(defun my-tabs-mode-hook ()
+      (setq indent-tabs-mode t
+			)
+	  )
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/haml-mode"))
 (require 'haml-mode)
+
+(add-hook 'haml-mode-hook 'my-tabs-mode-hook)
 
 ;; git-emacs :)
 (add-to-list 'load-path "~/.emacs.d/git-emacs")
@@ -775,7 +798,7 @@
       (notify-send (format "%s" (jabber-jid-displayname from))
              text)))
 
-(add-hook 'jabber-alert-message-hooks 'libnotify-jabber-notify)
+;; (add-hook 'jabber-alert-message-hooks 'libnotify-jabber-notify)
 
 (setq jabber-vcard-avatars-retrieve nil
       jabber-chat-buffer-show-avatar nil)

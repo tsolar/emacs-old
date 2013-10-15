@@ -100,12 +100,13 @@
 [submodule "web-mode"]
 	path = web-mode
 	url = https://github.com/fxbois/web-mode
+[submodule "idle-highlight-mode"]
+	path = idle-highlight-mode
+	url = https://github.com/nonsequitur/idle-highlight-mode
 [submodule "python-django.el"]
 	path = python-django.el
 	url = https://github.com/fgallina/python-django.el
-[submodule "python.el"]
-	path = python.el
-	url = https://github.com/fgallina/python.el
 [submodule "git-modes"]
 	path = git-modes
 	url = https://github.com/magit/git-modes
+
