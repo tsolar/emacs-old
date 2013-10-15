@@ -285,8 +285,9 @@
                       temp-file
                       (file-name-directory buffer-file-name))))
     (list "tidy" (list local-file))))
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.html$\\|\\.ctp" flymake-html-init))
+
+;;(add-to-list 'flymake-allowed-file-name-masks
+;;             '("\\.html$\\|\\.ctp" flymake-html-init))
 
 (add-to-list 'flymake-err-line-patterns
              '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\): \\(.*\\)"
@@ -452,11 +453,15 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/web-mode"))
 (require 'web-mode)
 (setq web-mode-engines-alist
-	  '(("django" . "\\.html\\'")
+	  '(
+		;;("django" . "\\.html\\'")
+		;;("php" . "\\.ctp\\'")
 		)
-)
+	  )
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ctp\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
