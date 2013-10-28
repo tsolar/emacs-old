@@ -525,6 +525,11 @@
 
 (add-hook 'haml-mode-hook 'my-tabs-mode-hook)
 
+;; diff highline
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/diff-hl"))
+(require 'diff-hl)
+(global-diff-hl-mode)
+
 ;; git-emacs :)
 (add-to-list 'load-path "~/.emacs.d/git-emacs")
 (require 'git-emacs)

@@ -110,3 +110,6 @@
 	path = git-modes
 	url = https://github.com/magit/git-modes
 
+[submodule "diff-hl"]
+	path = diff-hl
+	url = https://github.com/dgutov/diff-hl
