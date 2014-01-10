@@ -113,3 +113,6 @@
 [submodule "diff-hl"]
 	path = diff-hl
 	url = https://github.com/dgutov/diff-hl
+[submodule "python.el"]
+	path = python.el
+	url = https://github.com/fgallina/python.el
