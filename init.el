@@ -484,7 +484,7 @@
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-;;(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 
 
@@ -514,6 +514,36 @@
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/python-django.el"))
 (require 'python-django)
+(global-set-key (kbd "C-x j") 'python-django-open-project)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;enable pep8
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; To enable pep8 check
+;; install pep8 checker with one of those commands
+;; sudo apt-get install pep8
+;; or
+;; sudo pip install pep8
+
+(when (load "flymake" t)
+ (defun flymake-pylint-init ()
+   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                      'flymake-create-temp-inplace))
+          (local-file (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+         (list "pep8" (list "--repeat" local-file))))
+
+ (add-to-list 'flymake-allowed-file-name-masks
+              '("\\.py\\'" flymake-pylint-init)))
+
+(defun my-flymake-show-help ()
+  (when (get-char-property (point) 'flymake-overlay)
+    (let ((help (get-char-property (point) 'help-echo)))
+      (if help (message "%s" help)))))
+
+(add-hook 'post-command-hook 'my-flymake-show-help)
+
 
 ;; SASS mode
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/scss-mode"))
