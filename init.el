@@ -592,6 +592,9 @@
 
 (setq monky-process-type 'cmdserver)
 
+;; varnish
+(require 'vcl-mode)
+
 
 ;; ;;;elscreen
 
