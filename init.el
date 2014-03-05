@@ -129,7 +129,6 @@
  '(custom-enabled-themes nil)
  '(display-battery-mode t)
  '(display-time-mode t)
-;; '(electric-indent-mode t)
  '(electric-pair-mode t)
  '(erc-auto-query (quote window-noselect))
  '(erc-autoaway-mode t)
@@ -148,7 +147,6 @@
  '(global-subword-mode t)
  '(haml-backspace-backdents-nesting nil)
  '(haml-indent-offset 4)
- ;'(haml-mode-hook nil)
  '(identica-display-success-messages t)
  '(identica-soft-wrap-status t)
  '(ido-enable-flex-matching t)
@@ -162,7 +160,9 @@
  '(js2-bounce-indent-p t)
  '(js2-cleanup-whitespace t)
  '(js2-enter-indents-newline t)
+ '(less-css-compile-at-save t)
  '(rainbow-x-colors-major-mode-list (quote (emacs-lisp-mode lisp-interaction-mode c-mode c++-mode java-mode lua-mode html-helper-mode php-mode css-mode lisp-mode)))
+ '(safe-local-variable-values (quote ((less-css-output-directory . "../css") (less-css-compile-at-save . t))))
  '(save-place t nil (saveplace))
  '(scroll-conservatively 1)
  '(send-mail-function (quote smtpmail-send-it))
@@ -338,6 +338,9 @@
              )
   )
 
+;; LESS!!!!
+(add-to-list 'load-path "~/.emacs.d/less-css-mode")
+(require 'less-css-mode)
 
 ;; lua mode;
 (setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
