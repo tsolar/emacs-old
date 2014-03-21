@@ -3,7 +3,7 @@
  '(identica-soft-wrap-status t)
  '(inhibit-startup-screen t)
  '(tool-bar-mode nil)
- '(menu-bar-mode nil) 
+ '(menu-bar-mode nil)
  '(transient-mark-mode nil)
  '(blink-cursor-mode nil)
 )
@@ -26,7 +26,7 @@
  '(twittering-username-face ((t (:foreground "#0099B9" :underline nil))))
 
  ;; others
- 
+
  '(default ((t (:inherit nil :stipple nil :background "gray15" :foreground "gainsboro" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "xos4" :family "Inconsolata"))))
  '(cursor ((t (:background "yellow" :foreground "black"))))
  '(hl-line ((t (:inherit highlight :background "grey10"))))
@@ -47,9 +47,9 @@
 (add-to-list 'load-path "~/.emacs.d/identica-mode")
 ;(setq statusnet-server "www.gnewbook.org")
 ;(add-to-list 'load-path "~/Descargas/identica-mode/identica-mode")
-(require 'identica-mode)
-(setq identica-auth-mode "oauth")
-(setq identica-username "tsolar")
+;(require 'identica-mode)
+;(setq identica-auth-mode "oauth")
+;(setq identica-username "tsolar")
 ;(load "~/.emacs.d/identica-auth")
 
 
@@ -62,8 +62,8 @@
  )
 (load-library "~/.emacs.d/twitter-auth")
 
-(identica-mode )
-(split-window-horizontally )
+;(identica-mode )
+;(split-window-horizontally )
 (twittering-mode )
 
 (add-hook 'twittering-edit-mode-hook (lambda () (ispell-minor-mode) (flyspell-mode)))
