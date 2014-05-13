@@ -177,6 +177,8 @@
  '(smtpmail-smtp-server "mail.gnuchile.cl")
  '(smtpmail-smtp-service 25)
  '(tab-always-indent t)
+ '(tramp-default-host "localhost")
+ '(tramp-default-method "ssh")
  '(transient-mark-mode nil)
  '(which-function-mode t))
 (custom-set-faces
