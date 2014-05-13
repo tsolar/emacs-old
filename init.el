@@ -31,9 +31,12 @@
 
 ;; Turn on syntax colouring in all modes supporting it:
 (global-font-lock-mode t)
-(delete-selection-mode 1)
 (recentf-mode 1) ; keep a list of recently opened files
 (delete-selection-mode 1) ;; replace selection when typing
+
+
+(setq make-backup-files nil) ; stop creating those backup~ files
+(setq auto-save-default nil) ; stop creating those #autosave# files
 
 (setq search-highlight           t) ; Highlight search object
 (setq query-replace-highlight    t) ; Highlight query object
@@ -162,7 +165,9 @@
  '(js2-enter-indents-newline t)
  '(less-css-compile-at-save t)
  '(rainbow-x-colors-major-mode-list (quote (emacs-lisp-mode lisp-interaction-mode c-mode c++-mode java-mode lua-mode html-helper-mode php-mode css-mode lisp-mode)))
- '(safe-local-variable-values (quote ((less-css-output-directory . "../css") (less-css-compile-at-save . t))))
+ '(safe-local-variable-values (quote ((python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+") (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
+") (python-shell-completion-setup-code . "from IPython.core.completerlib import module_completion") (python-shell-interpreter-args . "/home/tom/public_html/gigya-data-python/gigya_data_django/manage.py shell") (python-shell-interpreter . "python") (less-css-output-directory . "../css") (less-css-compile-at-save . t))))
  '(save-place t nil (saveplace))
  '(scroll-conservatively 1)
  '(send-mail-function (quote smtpmail-send-it))
@@ -512,8 +517,9 @@
 
 
 ;; python & django
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/python.el"))
-(require 'python)
+;; this now comes with emacs 24.3
+;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/python.el"))
+;;(require 'python)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/python-django.el"))
 (require 'python-django)
@@ -674,7 +680,7 @@
 
 (add-hook 'window-configuration-change-hook
 	   '(lambda ()
-	      (setq erc-fill-column (- (window-width) 2))))
+ erc-fill-column (- (window-width) 2))))
 
 (add-to-list 'load-path "~/.emacs.d/erc-highlight-nick/")
 ;(erc-highlight-nicknames-mode )
@@ -789,7 +795,7 @@
 (setq jabber-account-list
 	  '(("tsolar@gmail.com"
 		 (:network-server . "talk.google.com")
-		 (:password . "sjbadfpvscuiesau")
+		 (:password . "fcyqlrhzfheydxnb")
 		 (:connection-type . ssl))))
 
 (defun egh:jabber-google-groupchat-create ()
