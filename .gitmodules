@@ -116,3 +116,6 @@
 [submodule "python.el"]
 	path = python.el
 	url = https://github.com/fgallina/python.el
+[submodule "tabbar"]
+	path = tabbar
+	url = https://github.com/dholm/tabbar.git
